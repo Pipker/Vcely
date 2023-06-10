@@ -48,12 +48,34 @@ document.querySelector("#dino2").addEventListener("click", dino2);
 document.querySelector("#dino3").addEventListener("click", dino3);
 document.querySelector("#dinobig").addEventListener("click", dinobig);
 document.querySelector("#dinobird").addEventListener("click", dinobird)
-document.querySelector(".ul").addEventListener("click", test)
+document.querySelector(".ul").addEventListener("click", create_bee)
 
 
+// Včelstvo
 
+class bee {
+	img = "img/bee.png"
+	left_pos = Math.floor(Math. random()*86)+4
+	top_pos = Math.floor(Math. random()*86)+4
+	
+	klik = function(){
+		console.log(this.left_pos+" "+this.top_pos)
+	}
+}
+bee1 = new bee
+bee1.klik()
 
-
-
-
+function create_bee(){
+	for(i=0;i<5;i++){
+		bee[i] = new bee
+		bee[i].klik()
+	}
+}
+imag = document.createElement("img")
+imag.src = bee1.img
+imag.style.display = "block"
+imag.style.left = bee1.left_pos + "%"
+imag.style.top = bee1.top_pos + "%"
+imag.style.position = "absolute"
+document.querySelector("body").appendChild(imag)
 

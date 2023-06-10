@@ -253,67 +253,7 @@ cursor: pointer;
     top: 37%;
 /*	border: 2px solid red;*/
 	z-index: 1000;
-	
-}
-
-
-#bee2{
-		cursor: pointer;
-
-		height: 5%;
-	width: 5%;
-	position: absolute;
-    left: 33%;
-    top: 70%;
-/*	border: 2px solid red;*/
-	z-index: 1000;
-	
-}
-
-
-#bee3{
-		cursor: pointer;
-
-		height: 5%;
-	width: 5%;
-	position: absolute;
-    left:58%;
-    top: 38.4%;
-/*	border: 2px solid red;*/
-	z-index: 1000;
-	
-}
-
-
-#bee4{
-		cursor: pointer;
-
-		height: 5%;
-	width: 5%;
-	position: absolute;
-    left: 53%;
-    top: 57.4%;
-/*	border: 2px solid red;*/
-	z-index: 1000;
-	
-}
-
-
-#bee5{
-		cursor: pointer;
-
-		height: 5%;
-	width: 5%;
-	position: absolute;
-    left: 38%;
-    top: 22.4%;
-/*	border: 2px solid red;*/
-	z-index: 1000;
-	
-}
-
-
-
+}	
 .layer2  {
 	position: absolute;
 	top: 0;
