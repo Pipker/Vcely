@@ -1,0 +1,385 @@
+* {
+    margin: 0;
+    padding:0;
+    box-sizing:border-box;
+}
+.ul{
+    width: 50px;
+    height: 80px;
+    left: 30%;
+    top: 35%;
+    position: absolute;
+    z-index: 500;
+}
+.mainImg {
+	
+	width: 99vw;
+height: 99vh;
+	}
+
+.minipig{
+height: 7%;
+    width: 10%;
+    position: absolute;
+    left: 57%;
+    top: 65%;
+    z-index: 5;
+}
+
+
+.minipig2{
+	height: 7%;
+    width: 10%;
+    position: absolute;
+    left: 70%;
+    top: 87%;
+    z-index: 5;
+}
+
+.minichicken{
+	height: 3%;
+	width: 3%;
+	position: absolute;
+  left: 77%;
+    top: 80%;
+    
+}
+.minichicken2{
+	height: 3%;
+	width: 3%;
+	position: absolute;
+    left: 34%;
+    top: 70%;
+    
+}
+
+.minichicken3{
+		height: 3%;
+	width: 3%;
+	position: absolute;
+   left: 39.4%;
+    top: 57.4%;
+
+	
+}
+
+.minibee1{
+	
+	height: 3%;
+	width: 3%;
+	position: absolute;
+  left: 6%;
+    top: 37%;
+    z-index: 500;
+    transform: rotateY(180deg);
+    display: none;
+
+
+}
+
+.minibee2{
+	
+	height: 3%;
+	width: 3%;
+	position: absolute;
+    left: 34%;
+    top: 70%;
+	transform: rotateY(180deg);
+    z-index: 500;
+    display: none;
+
+
+}
+
+.minibee3{
+	
+		height: 3%;
+	width: 3%;
+	position: absolute;
+   left: 59.4%;
+    top: 38.4%;
+	transform: rotateY(180deg);
+	z-index: 500;
+
+
+	
+}
+.minibee4{
+	
+		height: 3%;
+	width: 3%;
+	position: absolute;
+left: 54.4%;
+    top: 57.4%;
+	transform: rotateY(180deg);
+z-index: 500;	
+display: none;
+
+}
+
+.minibee5{
+	
+		height: 3%;
+	width: 3%;
+	position: absolute;
+   left: 39.4%;
+    top: 22.4%;
+transform: rotateY(180deg);
+z-index: 500;
+}
+
+
+/******FOR CLICK*****/
+
+#chicken1{
+	cursor: pointer;
+    height: 7%;
+    width: 8%;
+    position: absolute;
+    left: 75%;
+    top: 78%;
+    /* border: 2px solid red; */
+    z-index: 1000
+	
+}
+
+#chicken2{
+		cursor: pointer;
+
+		height:5%;
+	width: 5%;
+	position: absolute;
+     left: 34%;
+    top: 70%;
+/*	border: 2px solid red;*/
+	z-index: 1000;
+	
+}
+
+
+#chicken3{
+		cursor: pointer;
+
+height: 5%;
+    width: 5%;
+    position: absolute;
+left: 38.4%;
+    top: 56.4%;
+/*    border: 2px solid red;*/
+    z-index: 1000;
+	
+}
+
+.pig{
+    position: absolute;
+    height: 26%;
+    width: 22%;
+    top: 53%;
+    left: 0%;
+/*    border: solid 2px red;*/
+    z-index: 100;
+	cursor: pointer;
+}
+.hen{
+position: absolute;
+    height: 13%;
+    width: 14%;
+    top: 53%;
+    left: 21%;
+/*    border: solid 2px red;*/
+    z-index: 100;
+		cursor: pointer;
+
+}
+.goat{
+position: absolute;
+    height: 22%;
+    width: 28%;
+    bottom: 0%;
+    left: 11%;
+/*    border: solid 2px red;*/
+    z-index: 100;
+		cursor: pointer;
+
+}
+.stork{
+position: absolute;
+    height: 22%;
+    width: 28%;
+    top: 3%;
+    left: 6%;
+/*    border: solid 2px red;*/
+    z-index: 100;
+		cursor: pointer;
+
+}
+
+
+
+#pig1{
+		cursor: pointer;
+
+    cursor: pointer;
+    height: 12%;
+    width: 16%;
+    position: absolute;
+    left: 55%;
+    top: 62%;
+/*    border: 2px solid red;*/
+    z-index: 1000;
+	
+}
+
+#pig2{	cursor: pointer;
+
+cursor: pointer;
+    height: 11%;
+    width: 15%;
+    position: absolute;
+    left: 68%;
+    top: 85%;
+    /* border: 2px solid red; */
+    z-index: 1000;
+	
+}
+
+#bee1{
+		cursor: pointer;
+
+		height: 5%;
+	width: 5%;
+	position: absolute;
+    left: 5%;
+    top: 37%;
+/*	border: 2px solid red;*/
+	z-index: 1000;
+	
+}
+
+
+#bee2{
+		cursor: pointer;
+
+		height: 5%;
+	width: 5%;
+	position: absolute;
+    left: 33%;
+    top: 70%;
+/*	border: 2px solid red;*/
+	z-index: 1000;
+	
+}
+
+
+#bee3{
+		cursor: pointer;
+
+		height: 5%;
+	width: 5%;
+	position: absolute;
+    left:58%;
+    top: 38.4%;
+/*	border: 2px solid red;*/
+	z-index: 1000;
+	
+}
+
+
+#bee4{
+		cursor: pointer;
+
+		height: 5%;
+	width: 5%;
+	position: absolute;
+    left: 53%;
+    top: 57.4%;
+/*	border: 2px solid red;*/
+	z-index: 1000;
+	
+}
+
+
+#bee5{
+		cursor: pointer;
+
+		height: 5%;
+	width: 5%;
+	position: absolute;
+    left: 38%;
+    top: 22.4%;
+/*	border: 2px solid red;*/
+	z-index: 1000;
+	
+}
+
+
+
+.layer2  {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+#dino1{
+		cursor: pointer;
+
+position: absolute;
+    width: 47%;
+    height: 35%;
+    display: block;
+
+    right: 2%;
+    bottom: 2%;
+}
+#dino2 {
+		cursor: pointer;
+
+    position: absolute;
+    width: 25%;
+    height: 29%;
+    display: block;
+  
+    right: 47%;
+    bottom: 26%;
+}
+#dino3 {
+		cursor: pointer;
+
+    position: absolute;
+    width: 28%;
+    height: 39%;
+    display: block;
+   
+    left: 0%;
+    bottom: 9%;
+}
+#dinobig {
+		cursor: pointer;
+
+    position: absolute;
+    width: 35%;
+    height: 30%;
+    display: block;
+    
+    left: 53%;
+    bottom: 37%;
+}
+#dinobird {
+		cursor: pointer;
+
+    position: absolute;
+    width: 100%;
+    height: 33%;
+    display: block;
+
+    left: 0%;
+    top: 0%;
+}
+#forClick{
+    width: 80px;
+    height: 120px;
+    left: 30%;
+    top: 35%;
+    position: absolute;
+    z-index: 700;   
+}
