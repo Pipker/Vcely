@@ -49,7 +49,13 @@ function get_result(bleft,btop,bclass){
 // document.querySelector("#dinobig").addEventListener("click", dinobig);
 // document.querySelector("#dinobird").addEventListener("click", dinobird)
 document.querySelector(".ul").addEventListener("click", create_bee)
-
+testfce = function(){
+	console.log("pauza")
+}
+sleep = function(){
+	setTimeout(testfce, 5000)
+	
+}
 
 // Včelstvo
 
@@ -57,25 +63,20 @@ class bee {
 	img = "img/bee.png"
 	left_pos = Math.floor(Math. random()*86)+4
 	top_pos = Math.floor(Math. random()*86)+4
+	start_left = 0
+	start_top = 0
 	
 	klik = function(){
 		console.log(this.left_pos+" "+this.top_pos)
+		console.log(this.start_left+" "+this.start_top)
 	}
 	move = function(){
-		let left = 0
-		let top = 0
-		function test(){
-			console.log("jede move")
-			console.log(left)
+		setTimeout(() => {
+		this.start_left = this.start_left+1
 		
-		}
-		while (left < this.left_pos){
-		setInterval(test,100)	
-		left++
-		clearInterval()
-		
-		}
+		console.log(this.start_left)} ,1000)
 	}
+
 	
 }
 bee1 = new bee
@@ -92,7 +93,12 @@ function create_bee(){
 		imag.style.top = bee[i].top_pos + "%"
 		imag.style.position = "absolute"
 		document.querySelector("body").appendChild(imag)
+		z =0
+		while (z <bee[i].left_pos){
 		bee[i].move()
+	
+		z++
+		}
 	}
 }
 
