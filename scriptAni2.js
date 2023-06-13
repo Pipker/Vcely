@@ -1,4 +1,7 @@
-
+index_id = 0
+function klik2(){
+	console.log("bee[i].imag.id")
+}
 // var beesound=new Audio("../wav/bee.wav");
 // var dino1sound=new Audio("../wav/dino1.wav");
 // var dino2sound=new Audio("../wav/dino2.wav");
@@ -49,57 +52,99 @@ function get_result(bleft,btop,bclass){
 // document.querySelector("#dinobig").addEventListener("click", dinobig);
 // document.querySelector("#dinobird").addEventListener("click", dinobird)
 document.querySelector(".ul").addEventListener("click", create_bee)
-testfce = function(){
-	console.log("pauza")
-}
-sleep = function(){
-	setTimeout(testfce, 5000)
-	
-}
+
+
 
 // Včelstvo
 
 class bee {
+	
 	img = "img/bee.png"
 	left_pos = Math.floor(Math. random()*86)+4
 	top_pos = Math.floor(Math. random()*86)+4
 	start_left = 0
 	start_top = 0
-	
-	klik = function(){
-		console.log(this.left_pos+" "+this.top_pos)
-		console.log(this.start_left+" "+this.start_top)
-	}
-	move = function(){
-		setTimeout(() => {
-		this.start_left = this.start_left+1
-		
-		console.log(this.start_left)} ,1000)
-	}
+	imag = document.createElement("img")
+	create_one_bee(){
+	this.imag.src = this.img
+	this.imag.id = "id"+index_id
+	this.imag.style.display = "block"
+	this.imag.style.left = bee[i].start_left + "%"
+	this.imag.style.top = bee[i].top_pos + "%"
+	this.imag.style.position = "absolute"
+	this.imag.style.width = "3%"
+	this.imag.style.height = "3%"
+	// this.imag.addEventListener("click",function() {classList.add("active")})
+	document.querySelector("body").appendChild(this.imag)
 
-	
 }
-bee1 = new bee
-bee1.klik()
+	klik(){
+
+}
+}
+
 
 function create_bee(){
 	for(i=0;i<5;i++){
 		bee[i] = new bee
-		bee[i].klik()
-		imag = document.createElement("img")
-		imag.src = bee[i].img
-		imag.style.display = "block"
-		imag.style.left = bee[i].left_pos + "%"
-		imag.style.top = bee[i].top_pos + "%"
-		imag.style.position = "absolute"
-		document.querySelector("body").appendChild(imag)
-		z =0
-		while (z <bee[i].left_pos){
-		bee[i].move()
+		bee[i].create_one_bee()
+		console.log(bee[i].imag.id)
 	
-		z++
-		}
+
+		index_move=5
+		f1(bee[i].imag.id,bee[i].left_pos)
+
+		console.log("jedu"+document.getElementById("id"+i).id)
+		// document.getElementById("id"+i).addEventListener("click", klik3)
+		// function klik3(){
+		// 	console.log(document.getElementById("id"+i).id)
+		// }
+		index_id++
+	
+
+	
+		
 	}
+	all_bees = document.querySelectorAll("img")
+	console.log(all_bees)
+	for(i = 2;i<all_bees.length; i++){
+		function klik4(){
+			console.log(i)
+			
+		}
+		
+		all_bees[i].addEventListener("click", klik4)
+		
+
+
+	}
+
+
 }
+
+function resolveAfter2Seconds(x) {
+	return new Promise((resolve) => {
+	  setTimeout(() => {
+		resolve(x);
+	  }, 100);
+	});
+  }
+
+
+async function f1(id,left) {
+
+	for(g=0;g<left;g= g+(1/index_move)){
+	const x = await resolveAfter2Seconds(g);
+	document.getElementById(id).style.left = x+ "%"
+	// console.log(document.getElementById(id).style.left)
+}
+index_move=index_move-1
+
+  }
+
+   
+
+
+
 
 
