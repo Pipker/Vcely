@@ -1,4 +1,8 @@
 index_id = 0
+one_id = ""
+function klik3(){
+	console.log(one_id)
+}
 function klik2(){
 	console.log("bee[i].imag.id")
 }
@@ -108,17 +112,14 @@ function create_bee(){
 	all_bees = document.querySelectorAll("img")
 	console.log(all_bees)
 	for(i = 2;i<all_bees.length; i++){
-		function klik4(){
-			console.log(i)
-			
-		}
-		
-		all_bees[i].addEventListener("click", klik4)
+		one_id = all_bees[i].id
+		all_bees[i].addEventListener("click", function(Target){one_id=(Target["target"].id)
+		klik3()})
 		
 
 
 	}
-
+	
 
 }
 
