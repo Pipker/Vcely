@@ -1,11 +1,17 @@
 index_id = 0
 one_id = ""
-function klik3(){
-	console.log(one_id)
+function go_back(){
+	console.log(document.getElementById(one_id).style.left)
+
+	one_left = document.getElementById(one_id).style.left
+	one_left=one_left.replace("%" , "")
+	one_left=Number(one_left)
+	console.log(one_left)
+	f2(one_id,one_left)
+
+	
 }
-function klik2(){
-	console.log("bee[i].imag.id")
-}
+
 // var beesound=new Audio("../wav/bee.wav");
 // var dino1sound=new Audio("../wav/dino1.wav");
 // var dino2sound=new Audio("../wav/dino2.wav");
@@ -78,13 +84,12 @@ class bee {
 	this.imag.style.position = "absolute"
 	this.imag.style.width = "3%"
 	this.imag.style.height = "3%"
-	// this.imag.addEventListener("click",function() {classList.add("active")})
+	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
+	go_back()})
 	document.querySelector("body").appendChild(this.imag)
 
 }
-	klik(){
 
-}
 }
 
 
@@ -92,33 +97,21 @@ function create_bee(){
 	for(i=0;i<5;i++){
 		bee[i] = new bee
 		bee[i].create_one_bee()
-		console.log(bee[i].imag.id)
 	
-
 		index_move=5
 		f1(bee[i].imag.id,bee[i].left_pos)
 
-		console.log("jedu"+document.getElementById("id"+i).id)
-		// document.getElementById("id"+i).addEventListener("click", klik3)
-		// function klik3(){
-		// 	console.log(document.getElementById("id"+i).id)
-		// }
 		index_id++
-	
-
-	
 		
 	}
-	all_bees = document.querySelectorAll("img")
-	console.log(all_bees)
-	for(i = 2;i<all_bees.length; i++){
-		one_id = all_bees[i].id
-		all_bees[i].addEventListener("click", function(Target){one_id=(Target["target"].id)
-		klik3()})
+	// all_bees = document.querySelectorAll("img")
+	// for(i = 2;i<all_bees.length; i++){
+	// 	one_id = all_bees[i].id
+
 		
 
 
-	}
+	// }
 	
 
 }
@@ -137,9 +130,28 @@ async function f1(id,left) {
 	for(g=0;g<left;g= g+(1/index_move)){
 	const x = await resolveAfter2Seconds(g);
 	document.getElementById(id).style.left = x+ "%"
-	// console.log(document.getElementById(id).style.left)
 }
 index_move=index_move-1
+
+  }
+
+  function resolveAfter(y) {
+	return new Promise((resolve) => {
+	  setTimeout(() => {
+		resolve(y);
+	  }, 100);
+	});
+  }
+
+
+async function f2(id,left) {
+
+	for(g=left;g>0;g= g-1){
+	const y = await resolveAfter(g);
+	document.getElementById(one_id).style.left = y+ "%"
+	console.log(document.getElementById(one_id).style.left)
+}
+// index_move=index_move-1
 
   }
 
