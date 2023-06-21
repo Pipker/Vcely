@@ -70,7 +70,7 @@ class bee {
 	left_pos = Math.floor(Math. random()*86)+8
 	top_pos = Math.floor(Math. random()*86)+8
 	start_left = 30
-	start_top = 35
+	start_top = 44
 	get_top_index = function(){
 		if(this.start_left-this.left_pos<0){
 			return (this.top_pos - this.start_top)/(this.start_left-this.left_pos)*(-1)
@@ -116,6 +116,7 @@ class bee {
 	this.imag.style.position = "absolute"
 	this.imag.style.width = "3%"
 	this.imag.style.height = "3%"
+	this.imag.style.zIndex = "1000"
 	this.top_index=this.get_top_index()
 
 	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
@@ -137,7 +138,10 @@ class bee {
 
 
 function create_bee(){
+if (ready_for_new_bee==true){
 
+	console.log(ready_for_new_bee)
+	test = 0
 	index_move_left=0
 	index_move_right=0
 	for(i=0;i<5;i++){
@@ -149,10 +153,13 @@ function create_bee(){
 
 }
 
+console.log(ready_for_new_bee)
+}
 f1_right = async function(id,left, start_left,top,move_index,top_index) {
 	index_move_right=index_move_right+1
 
 	for(g=start_left;g<left;g= g+(1/index_move_right)){
+	ready_for_new_bee= false
 	const x = await resolveAfter2Seconds(g);
 	one_top = document.getElementById(id).style.top
 	one_top = one_top.replace("%","")
@@ -162,6 +169,7 @@ f1_right = async function(id,left, start_left,top,move_index,top_index) {
 
 	document.getElementById(id).style.top = one_top+ "%"
 } 
+ready_for_new_bee= true
 index_move_right=index_move_right-1
 
   }
