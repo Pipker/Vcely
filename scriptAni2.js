@@ -1,5 +1,8 @@
 index_id = 0
 one_id = ""
+for_spin_top = null
+for_spin_left = null
+
 function go_back(){
 	one_left = document.getElementById(one_id).style.left
 	one_left=one_left.replace("%" , "")
@@ -8,6 +11,8 @@ function go_back(){
 }
 index_move_left=0
 index_move_right=0
+index_move_up=0
+index_move_down=0
 ready_for_new_bee = true
 // var beesound=new Audio("../wav/bee.wav");
 // var dino1sound=new Audio("../wav/dino1.wav");
@@ -20,22 +25,22 @@ function gen_num(){
 	return(Math.floor(Math. random()*90))
 }
 
-function get_result(bleft,btop,bclass){
-	resultLeft = bleft-ulleft
-	if(resultLeft<0){
-		document.querySelector(bclass).style.transform = "rotateY(0deg)";
-		resultLeft=resultLeft*-1
-	}
-	resultTop=btop-ultop
-	if(resultTop<0){
-		resultTop=resultTop*-1
-	}
-	if (resultLeft>resultTop){
-		resultSpin ="left"
-	}else{
-		resultSpin ="top"
-	}	
-}
+// function get_result(bleft,btop,bclass){
+// 	resultLeft = bleft-ulleft
+// 	if(resultLeft<0){
+// 		document.querySelector(bclass).style.transform = "rotateY(0deg)";
+// 		resultLeft=resultLeft*-1
+// 	}
+// 	resultTop=btop-ultop
+// 	if(resultTop<0){
+// 		resultTop=resultTop*-1
+// 	}
+// 	if (resultLeft>resultTop){
+// 		resultSpin ="left"
+// 	}else{
+// 		resultSpin ="top"
+// 	}	
+// }
 
 // function dino1(){
 // dino1sound.play();	
@@ -78,7 +83,13 @@ class bee {
 			return (this.top_pos - this.start_top)/(this.start_left-this.left_pos)	
 		}
 	}
-
+	get_left_index = function(){
+		if(this.start_top-this.top_pos<0){
+			return (this.left_pos - this.start_left)/(this.start_top-this.top_pos)*(-1)
+		}else{
+			return (this.left_pos - this.start_left)/(this.start_top-this.top_pos)	
+		}
+	}
 	imag = document.createElement("img")
 	rotate = function (){
 		if (this.left_pos-this.start_left<0){
@@ -91,15 +102,28 @@ class bee {
 	}
 	
 	choose_spin = function(){
-		if (this.left_pos-this.start_left<0){
+		for_spin_top = this.top_pos-this.start_top
+		if (for_spin_top<0){
+			for_spin_top = for_spin_top *(-1)
+		}
+		for_spin_left = this.left_pos-this.start_left
+		if (for_spin_left<0){
+			for_spin_left = for_spin_left *(-1)
+		}
+		
+		if (this.left_pos-this.start_left<0 && for_spin_top<for_spin_left){
 			this.move_const = (this.top_pos-this.start_top)/(this.start_left-this.left_pos)
 
 			return "left"
 		}
-		else{
+		else if(this.left_pos-this.start_left>0 && for_spin_top<for_spin_left){
 			this.move_const = (this.top_pos-this.start_top)/(this.left_pos-this.start_left)
 
 			return "right"
+		}else if(this.top_pos-this.start_top>0 && for_spin_top>for_spin_left){
+			return "up"
+		}else{
+			return "down"
 		}
 	}
 
@@ -118,6 +142,7 @@ class bee {
 	this.imag.style.height = "3%"
 	this.imag.style.zIndex = "1000"
 	this.top_index=this.get_top_index()
+	this.left_index = this.get_left_index()
 
 	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
 	
@@ -125,11 +150,17 @@ class bee {
 	document.querySelector("body").appendChild(this.imag)
 
 	if (this.spin=="right"){
-	f1_right(this.imag.id,this.left_pos, this.start_left, this.start_top,this.move_const, this.top_index)
+	f1_right(this.imag.id,this.left_pos, this.start_left, this.top_index)
 		}
 	else if (this.spin=="left"){
-		f1_left(this.imag.id,this.left_pos, this.start_left,this.start_top,this.move_const, this.top_index)
-}
+		f1_left(this.imag.id,this.left_pos, this.start_left, this.top_index)
+		}
+	else if (this.spin=="up"){
+		f1_up(this.imag.id,this.top_pos, this.start_top, this.left_index)
+	}
+	else if (this.spin=="down"){
+		f1_down(this.imag.id,this.top_pos, this.start_top, this.left_index)
+	}
 
 }
 
@@ -140,22 +171,21 @@ class bee {
 function create_bee(){
 if (ready_for_new_bee==true){
 
-	console.log(ready_for_new_bee)
 	test = 0
 	index_move_left=0
 	index_move_right=0
 	for(i=0;i<5;i++){
 		bee[i] = new bee
 		bee[i].create_one_bee()
+		console.log(bee[i].left_pos+" "+bee[i].top_pos+ " "+[i])
 		index_id++
 		
 	}
 
 }
 
-console.log(ready_for_new_bee)
 }
-f1_right = async function(id,left, start_left,top,move_index,top_index) {
+f1_right = async function(id,left, start_left,top_index) {
 	index_move_right=index_move_right+1
 
 	for(g=start_left;g<left;g= g+(1/index_move_right)){
@@ -173,7 +203,7 @@ ready_for_new_bee= true
 index_move_right=index_move_right-1
 
   }
-  f1_left = async function (id,left, start_left, top, move_index,top_index) {
+  f1_left = async function (id,left, start_left,top_index) {
 
 	index_move_left=index_move_left+1
 	
@@ -189,6 +219,38 @@ index_move_right=index_move_right-1
 	index_move_left=index_move_left-1
 	
   }
+  f1_up = async function (id,top, start_top,left_index) {
+
+	index_move_up=index_move_up+1
+	
+	for(z=start_top;z<top;z= z+(1/index_move_up)){
+		const x = await resolveAfter2Seconds(z);
+		one_left = document.getElementById(id).style.left
+		one_left = one_left.replace("%","")
+		one_left = Number(one_left)
+	one_left = one_left+(left_index)
+		document.getElementById(id).style.top = z+ "%"
+		document.getElementById(id).style.left = one_left+ "%"
+	} 
+	index_move_up=index_move_up-1
+	
+  }
+  f1_down = async function (id,top, start_top,left_index) {
+
+	index_move_down=index_move_down+1
+	
+	for(a=start_top;a>top;a= a-(1/index_move_down)){
+		const x = await resolveAfter2Seconds(a);
+		one_left = document.getElementById(id).style.left
+		one_left = one_left.replace("%","")
+		one_left = Number(one_left)
+	one_left = one_left+(left_index)
+		document.getElementById(id).style.top = a+ "%"
+		document.getElementById(id).style.left = one_left+ "%"
+	} 
+	index_move_down=index_move_down-1
+	
+}
 
   resolveAfter2Seconds = function (x) {
 	return new Promise((resolve) => {
