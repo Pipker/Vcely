@@ -2,12 +2,54 @@ index_id = 0
 one_id = ""
 for_spin_top = null
 for_spin_left = null
+move_back_up = false
+move_back_down = false
+move_back_left = false
+move_back_right = false
 
-function go_back(){
+function to_back(){
+	
+	move_bee.top_index = move_bee.top_index*(-1)
+	move_bee.left_index = move_bee.left_index*(-1)
+	if (move_bee.imag.style.transform == "rotateY(180deg)"){
+		move_bee.imag.style.transform = "rotateY(0deg)"
+	}else {move_bee.imag.style.transform = "rotateY(180deg)"}
 	one_left = document.getElementById(one_id).style.left
 	one_left=one_left.replace("%" , "")
-	one_left=Number(one_left)
-	f2(one_id,one_left)
+	one_left=Number(one_left)}
+
+function go_back(){
+	move_bee = bee[one_id.replace("id","")]
+	if (move_bee.spin=="right"){
+		if(move_back_left != true){
+			to_back()
+		move_back_left = true
+		f1_left(move_bee.imag.id, move_bee.start_left, move_bee.left_pos, move_bee.top_index)
+	}
+	}
+		else if (move_bee.spin=="left"){
+			if(move_back_right != true){
+				to_back()
+			move_back_right = true
+			f1_right(move_bee.imag.id,move_bee.start_left, move_bee.left_pos, move_bee.top_index)
+			}
+		}
+		else if (move_bee.spin=="up"){
+			if(move_back_down != true){
+				to_back()
+			move_back_down = true
+			f1_down(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
+		}
+	}
+		else if (move_bee.spin=="down"){
+			if(move_back_up != true){
+				to_back()
+			move_back_up = true
+			f1_up(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
+		}
+	}
+
+	
 }
 index_move_left=0
 index_move_right=0
@@ -136,6 +178,7 @@ class bee {
 	this.imag.style.display = "block"
 	this.imag.style.transform = this.rotate()
 	this.imag.style.left = bee[i].start_left + "%"
+	this.imag.style.cursor = "pointer"
 	this.imag.style.top = bee[i].start_top + "%"
 	this.imag.style.position = "absolute"
 	this.imag.style.width = "3%"
@@ -143,6 +186,7 @@ class bee {
 	this.imag.style.zIndex = "1000"
 	this.top_index=this.get_top_index()
 	this.left_index = this.get_left_index()
+	console.log(this.left_pos+"  "+this.top_pos)
 
 	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
 	
@@ -175,15 +219,11 @@ if (ready_for_new_bee==true){
 	index_move_left=0
 	index_move_right=0
 	for(i=0;i<5;i++){
-		bee[i] = new bee
-		bee[i].create_one_bee()
-		console.log(bee[i].left_pos+" "+bee[i].top_pos+ " "+[i])
+		bee[index_id] = new bee
+		bee[index_id].create_one_bee()
 		index_id++
-		
 	}
-
 }
-
 }
 f1_right = async function(id,left, start_left,top_index) {
 	index_move_right=index_move_right+1
@@ -198,16 +238,20 @@ f1_right = async function(id,left, start_left,top_index) {
 	document.getElementById(id).style.left = x+ "%"
 
 	document.getElementById(id).style.top = one_top+ "%"
+}
+if (move_back_right == true){
+	document.getElementById(id).remove()
+	move_back_right = false	
 } 
 ready_for_new_bee= true
 index_move_right=index_move_right-1
 
   }
-  f1_left = async function (id,left, start_left,top_index) {
 
+f1_left = async function (id,left, start_left,top_index) {
 	index_move_left=index_move_left+1
-	
 	for(h=start_left;h>left;h= h-(1/index_move_left)){
+		ready_for_new_bee= false
 		const x = await resolveAfter2Seconds(h);
 		one_top = document.getElementById(id).style.top
 		one_top = one_top.replace("%","")
@@ -215,7 +259,12 @@ index_move_right=index_move_right-1
 	one_top = one_top+(top_index)
 		document.getElementById(id).style.left = x+ "%"
 		document.getElementById(id).style.top = one_top+ "%"
-	} 
+	}
+	if (move_back_left == true){
+		document.getElementById(id).remove()
+		move_back_left = false	
+	}
+	ready_for_new_bee= true 
 	index_move_left=index_move_left-1
 	
   }
@@ -224,6 +273,7 @@ index_move_right=index_move_right-1
 	index_move_up=index_move_up+1
 	
 	for(z=start_top;z<top;z= z+(1/index_move_up)){
+		ready_for_new_bee= false
 		const x = await resolveAfter2Seconds(z);
 		one_left = document.getElementById(id).style.left
 		one_left = one_left.replace("%","")
@@ -231,15 +281,19 @@ index_move_right=index_move_right-1
 	one_left = one_left+(left_index)
 		document.getElementById(id).style.top = z+ "%"
 		document.getElementById(id).style.left = one_left+ "%"
-	} 
+	}
+	if (move_back_up== true){
+		document.getElementById(id).remove()
+		move_back_up = false	
+	}
+	ready_for_new_bee= true 
 	index_move_up=index_move_up-1
-	
   }
-  f1_down = async function (id,top, start_top,left_index) {
+f1_down = async function (id,top, start_top,left_index) {
 
 	index_move_down=index_move_down+1
-	
 	for(a=start_top;a>top;a= a-(1/index_move_down)){
+		ready_for_new_bee= false
 		const x = await resolveAfter2Seconds(a);
 		one_left = document.getElementById(id).style.left
 		one_left = one_left.replace("%","")
@@ -247,16 +301,18 @@ index_move_right=index_move_right-1
 	one_left = one_left+(left_index)
 		document.getElementById(id).style.top = a+ "%"
 		document.getElementById(id).style.left = one_left+ "%"
-	} 
+	}
+	if (move_back_down == true){
+		document.getElementById(id).remove()
+		move_back_down = false	
+	}
+	ready_for_new_bee= true 
 	index_move_down=index_move_down-1
-	
 }
-
-  resolveAfter2Seconds = function (x) {
+resolveAfter2Seconds = function (x) {
 	return new Promise((resolve) => {
 	  setTimeout(() => {
 		resolve(x);
 	  }, 100);
 	});
   }
-  
