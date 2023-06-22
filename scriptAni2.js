@@ -7,47 +7,49 @@ move_back_down = false
 move_back_left = false
 move_back_right = false
 
-function to_back(){
+// function to_back(){
 	
-	move_bee.top_index = move_bee.top_index*(-1)
-	move_bee.left_index = move_bee.left_index*(-1)
-	if (move_bee.imag.style.transform == "rotateY(180deg)"){
-		move_bee.imag.style.transform = "rotateY(0deg)"
-	}else {move_bee.imag.style.transform = "rotateY(180deg)"}
-	one_left = document.getElementById(one_id).style.left
-	one_left=one_left.replace("%" , "")
-	one_left=Number(one_left)}
+// 	move_bee.top_index = move_bee.top_index*(-1)
+// 	move_bee.left_index = move_bee.left_index*(-1)
+// 	if (move_bee.imag.style.transform == "rotateY(180deg)"){
+// 		move_bee.imag.style.transform = "rotateY(0deg)"
+// 	}else {move_bee.imag.style.transform = "rotateY(180deg)"}
+// 	one_left = document.getElementById(one_id).style.left
+// 	one_left=one_left.replace("%" , "")
+// 	one_left=Number(one_left)}
 
-function go_back(){
-	move_bee = bee[one_id.replace("id","")]
-	if (move_bee.spin=="right"){
-		if(move_back_left != true){
-			to_back()
-		move_back_left = true
-		f1_left(move_bee.imag.id, move_bee.start_left, move_bee.left_pos, move_bee.top_index)
-	}
-	}
-		else if (move_bee.spin=="left"){
-			if(move_back_right != true){
-				to_back()
-			move_back_right = true
-			f1_right(move_bee.imag.id,move_bee.start_left, move_bee.left_pos, move_bee.top_index)
-			}
-		}
-		else if (move_bee.spin=="up"){
-			if(move_back_down != true){
-				to_back()
-			move_back_down = true
-			f1_down(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
-		}
-	}
-		else if (move_bee.spin=="down"){
-			if(move_back_up != true){
-				to_back()
-			move_back_up = true
-			f1_up(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
-		}
-	}
+function back(){
+	console.log(bee[one_id.replace("id","")])
+	bee[one_id.replace("id","")].go_back()
+	// move_bee = bee[one_id.replace("id","")]
+	// if (move_bee.spin=="right"){
+	// 	if(move_back_left != true){
+	// 		to_back()
+	// 	move_back_left = true
+	// 	f1_left(move_bee.imag.id, move_bee.start_left, move_bee.left_pos, move_bee.top_index)
+	// }
+	// }
+	// 	else if (move_bee.spin=="left"){
+	// 		if(move_back_right != true){
+	// 			to_back()
+	// 		move_back_right = true
+	// 		f1_right(move_bee.imag.id,move_bee.start_left, move_bee.left_pos, move_bee.top_index)
+	// 		}
+	// 	}
+	// 	else if (move_bee.spin=="up"){
+	// 		if(move_back_down != true){
+	// 			to_back()
+	// 		move_back_down = true
+	// 		f1_down(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
+	// 	}
+	// }
+	// 	else if (move_bee.spin=="down"){
+	// 		if(move_back_up != true){
+	// 			to_back()
+	// 		move_back_up = true
+	// 		f1_up(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
+	// 	}
+	// }
 
 	
 }
@@ -166,8 +168,52 @@ class bee {
 			return "up"
 		}else{
 			return "down"
-		}
-	}
+		}}
+	to_back = function(){
+	
+			this.top_index = this.top_index*(-1)
+			this.left_index = this.left_index*(-1)
+			if (this.imag.style.transform == "rotateY(180deg)"){
+				this.imag.style.transform = "rotateY(0deg)"
+			}else {this.imag.style.transform = "rotateY(180deg)"}
+			one_left = document.getElementById(one_id).style.left
+			one_left=one_left.replace("%" , "")
+			one_left=Number(one_left)}
+
+		go_back(){
+			console.log("jede")
+				// move_bee = bee[one_id.replace("id","")]
+				if (this.spin=="right"){
+					if(move_back_left != true){
+						this.to_back()
+					move_back_left = true
+					f1_left(this.imag.id, this.start_left, this.left_pos, this.top_index)
+				}
+				}
+					else if (this.spin=="left"){
+						if(move_back_right != true){
+							this.to_back()
+						move_back_right = true
+						f1_right(this.imag.id,this.start_left, this.left_pos, this.top_index)
+					}}
+					else if (this.spin=="up"){
+						if(move_back_down != true){
+							this.to_back()
+						move_back_down = true
+						f1_down(this.imag.id,this.start_top, this.top_pos, this.left_index)
+					}
+				}
+					else if (this.spin=="down"){
+						if(move_back_up != true){
+							this.to_back()
+						move_back_up = true
+						f1_up(this.imag.id,this.start_top, this.top_pos, this.left_index)
+					}}
+				
+
+			}
+
+	
 
 
 	create_one_bee(){
@@ -190,7 +236,7 @@ class bee {
 
 	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
 	
-	go_back()})
+	back()})
 	document.querySelector("body").appendChild(this.imag)
 
 	if (this.spin=="right"){
