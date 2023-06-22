@@ -6,6 +6,10 @@ move_back_up = false
 move_back_down = false
 move_back_left = false
 move_back_right = false
+move_up = false
+move_down = false
+move_left = false
+move_right = false
 
 // function to_back(){
 	
@@ -19,8 +23,11 @@ move_back_right = false
 // 	one_left=Number(one_left)}
 
 function back(){
-	console.log(bee[one_id.replace("id","")])
+if (bee[one_id.replace("id","")].ready_to_klick ==true){
+
+
 	bee[one_id.replace("id","")].go_back()
+}
 	// move_bee = bee[one_id.replace("id","")]
 	// if (move_bee.spin=="right"){
 	// 	if(move_back_left != true){
@@ -51,7 +58,7 @@ function back(){
 	// 	}
 	// }
 
-	
+console.log(bee[one_id.replace("id","")].ready_to_klick)	
 }
 index_move_left=0
 index_move_right=0
@@ -116,10 +123,11 @@ document.querySelector(".ul").addEventListener("click", create_bee)
 class bee {
 	
 	img = "img/bee.png"
-	left_pos = Math.floor(Math. random()*86)+8
-	top_pos = Math.floor(Math. random()*86)+8
-	start_left = 30
+	left_pos = Math.floor(Math. random()*82)+8
+	top_pos = Math.floor(Math. random()*82)+8
+	start_left = 45
 	start_top = 44
+	ready_to_klick = false
 	get_top_index = function(){
 		if(this.start_left-this.left_pos<0){
 			return (this.top_pos - this.start_top)/(this.start_left-this.left_pos)*(-1)
@@ -176,39 +184,42 @@ class bee {
 			if (this.imag.style.transform == "rotateY(180deg)"){
 				this.imag.style.transform = "rotateY(0deg)"
 			}else {this.imag.style.transform = "rotateY(180deg)"}
-			one_left = document.getElementById(one_id).style.left
-			one_left=one_left.replace("%" , "")
-			one_left=Number(one_left)}
+			// one_left = this.left_pos
+			// one_left=one_left.replace("%" , "")
+			// one_left=Number(one_left)
+		}
 
 		go_back(){
-			console.log("jede")
-				// move_bee = bee[one_id.replace("id","")]
 				if (this.spin=="right"){
-					if(move_back_left != true){
+					if(move_back_left != true && move_left != true){
 						this.to_back()
 					move_back_left = true
-					f1_left(this.imag.id, this.start_left, this.left_pos, this.top_index)
-				}
+					f1_left(this.imag.id, this.start_left, this.left_pos, this.top_index, this.ready_to_klick)
+				}else{
+					console.log("zablokovano")}
 				}
 					else if (this.spin=="left"){
-						if(move_back_right != true){
+						if(move_back_right != true && move_right != true){
 							this.to_back()
 						move_back_right = true
-						f1_right(this.imag.id,this.start_left, this.left_pos, this.top_index)
-					}}
+						f1_right(this.imag.id,this.start_left, this.left_pos, this.top_index, this.ready_to_klick)
+					}else{
+					console.log("zablokovano")}}
 					else if (this.spin=="up"){
-						if(move_back_down != true){
+						if(move_back_down != true && move_down != true){
 							this.to_back()
 						move_back_down = true
-						f1_down(this.imag.id,this.start_top, this.top_pos, this.left_index)
-					}
+						f1_down(this.imag.id,this.start_top, this.top_pos, this.left_index, this.ready_to_klick)
+					}else{
+						console.log("zablokovano")}
 				}
 					else if (this.spin=="down"){
-						if(move_back_up != true){
+						if(move_back_up != true && move_up != true){
 							this.to_back()
 						move_back_up = true
-						f1_up(this.imag.id,this.start_top, this.top_pos, this.left_index)
-					}}
+						f1_up(this.imag.id,this.start_top, this.top_pos, this.left_index, this.ready_to_klick)
+					}else{
+						console.log("zablokovano")}}
 				
 
 			}
@@ -232,26 +243,30 @@ class bee {
 	this.imag.style.zIndex = "1000"
 	this.top_index=this.get_top_index()
 	this.left_index = this.get_left_index()
-	console.log(this.left_pos+"  "+this.top_pos)
+	console.log(this.imag.id+ "  "+this.left_pos+"  "+this.top_pos)
 
-	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
-	
-	back()})
+
 	document.querySelector("body").appendChild(this.imag)
 
 	if (this.spin=="right"){
-	f1_right(this.imag.id,this.left_pos, this.start_left, this.top_index)
+		move_right = true
+	f1_right(this.imag.id,this.left_pos, this.start_left, this.top_index, this.ready_to_klick)
 		}
 	else if (this.spin=="left"){
-		f1_left(this.imag.id,this.left_pos, this.start_left, this.top_index)
+		move_left = true
+		f1_left(this.imag.id,this.left_pos, this.start_left, this.top_index, this.ready_to_klick)
 		}
 	else if (this.spin=="up"){
-		f1_up(this.imag.id,this.top_pos, this.start_top, this.left_index)
+		move_up = true
+		f1_up(this.imag.id,this.top_pos, this.start_top, this.left_index, this.ready_to_klick)
 	}
 	else if (this.spin=="down"){
-		f1_down(this.imag.id,this.top_pos, this.start_top, this.left_index)
+		move_down = true
+		f1_down(this.imag.id,this.top_pos, this.start_top, this.left_index, this.ready_to_klick)
 	}
-
+	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
+	
+	back()})
 }
 
 }
@@ -271,7 +286,7 @@ if (ready_for_new_bee==true){
 	}
 }
 }
-f1_right = async function(id,left, start_left,top_index) {
+f1_right = async function(id,left, start_left,top_index, ready) {
 	index_move_right=index_move_right+1
 
 	for(g=start_left;g<left;g= g+(1/index_move_right)){
@@ -288,13 +303,15 @@ f1_right = async function(id,left, start_left,top_index) {
 if (move_back_right == true){
 	document.getElementById(id).remove()
 	move_back_right = false	
-} 
+}
+move_right = false 
 ready_for_new_bee= true
+bee[id.replace("id","")].ready_to_klick = true 
 index_move_right=index_move_right-1
 
   }
 
-f1_left = async function (id,left, start_left,top_index) {
+f1_left = async function (id,left, start_left,top_index,ready) {
 	index_move_left=index_move_left+1
 	for(h=start_left;h>left;h= h-(1/index_move_left)){
 		ready_for_new_bee= false
@@ -310,11 +327,13 @@ f1_left = async function (id,left, start_left,top_index) {
 		document.getElementById(id).remove()
 		move_back_left = false	
 	}
-	ready_for_new_bee= true 
+	ready_for_new_bee= true
+	move_left = false
+	bee[id.replace("id","")].ready_to_klick = true  
 	index_move_left=index_move_left-1
 	
   }
-  f1_up = async function (id,top, start_top,left_index) {
+  f1_up = async function (id,top, start_top,left_index, ready) {
 
 	index_move_up=index_move_up+1
 	
@@ -332,10 +351,12 @@ f1_left = async function (id,left, start_left,top_index) {
 		document.getElementById(id).remove()
 		move_back_up = false	
 	}
-	ready_for_new_bee= true 
+	ready_for_new_bee= true
+	move_up = false
+	bee[id.replace("id","")].ready_to_klick = true   
 	index_move_up=index_move_up-1
   }
-f1_down = async function (id,top, start_top,left_index) {
+f1_down = async function (id,top, start_top,left_index, ready) {
 
 	index_move_down=index_move_down+1
 	for(a=start_top;a>top;a= a-(1/index_move_down)){
@@ -352,7 +373,9 @@ f1_down = async function (id,top, start_top,left_index) {
 		document.getElementById(id).remove()
 		move_back_down = false	
 	}
-	ready_for_new_bee= true 
+	ready_for_new_bee= true
+	move_down = false
+	bee[[id.replace("id","")]].ready_to_klick = true  
 	index_move_down=index_move_down-1
 }
 resolveAfter2Seconds = function (x) {
@@ -362,3 +385,4 @@ resolveAfter2Seconds = function (x) {
 	  }, 100);
 	});
   }
+  create_bee()
