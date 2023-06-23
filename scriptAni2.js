@@ -10,6 +10,7 @@ move_up = false
 move_down = false
 move_left = false
 move_right = false
+ready_to_random = true
 
 // function to_back(){
 	
@@ -24,7 +25,7 @@ move_right = false
 
 function back(){
 if (bee[one_id.replace("id","")].ready_to_klick ==true){
-
+	bee[one_id.replace("id","")].ready_to_klick =false
 
 	bee[one_id.replace("id","")].go_back()
 }
@@ -58,7 +59,6 @@ if (bee[one_id.replace("id","")].ready_to_klick ==true){
 	// 	}
 	// }
 
-console.log(bee[one_id.replace("id","")].ready_to_klick)	
 }
 index_move_left=0
 index_move_right=0
@@ -126,7 +126,7 @@ class bee {
 	left_pos = Math.floor(Math. random()*82)+8
 	top_pos = Math.floor(Math. random()*82)+8
 	start_left = 45
-	start_top = 44
+	start_top = 41
 	ready_to_klick = false
 	get_top_index = function(){
 		if(this.start_left-this.left_pos<0){
@@ -177,49 +177,63 @@ class bee {
 		}else{
 			return "down"
 		}}
-	to_back = function(){
-	
+	to_back = function(){			
+			
 			this.top_index = this.top_index*(-1)
 			this.left_index = this.left_index*(-1)
-			if (this.imag.style.transform == "rotateY(180deg)"){
-				this.imag.style.transform = "rotateY(0deg)"
-			}else {this.imag.style.transform = "rotateY(180deg)"}
+			if (this.left_pos >this.start_left){
+				this.imag.style.transform = "rotateY(180deg)"
+			}else {this.imag.style.transform = "rotateY(0deg)"}
 			// one_left = this.left_pos
 			// one_left=one_left.replace("%" , "")
 			// one_left=Number(one_left)
 		}
 
 		go_back(){
+			
+			this.left_pos = this.imag.style.left
+			this.left_pos = this.left_pos.replace("%","")
+			this.left_pos = Number(this.left_pos)
+			this.top_pos = this.imag.style.top
+			this.top_pos = this.top_pos.replace("%","")
+			this.top_pos = Number(this.top_pos)
+			this.left_index=this.get_left_index()
+			this.top_index=this.get_top_index()
+			this.spin=this.choose_spin()
+
 				if (this.spin=="right"){
 					if(move_back_left != true && move_left != true){
 						this.to_back()
 					move_back_left = true
-					f1_left(this.imag.id, this.start_left, this.left_pos, this.top_index, this.ready_to_klick)
-				}else{
-					console.log("zablokovano")}
+					f1_left(this.imag.id, this.start_left, this.left_pos, this.top_index)
+				}else{if(ready_to_random == true){
+					random_move(this.imag.id,this.ready_to_klick)
+					}}
 				}
 					else if (this.spin=="left"){
 						if(move_back_right != true && move_right != true){
 							this.to_back()
 						move_back_right = true
-						f1_right(this.imag.id,this.start_left, this.left_pos, this.top_index, this.ready_to_klick)
-					}else{
-					console.log("zablokovano")}}
+						f1_right(this.imag.id,this.start_left, this.left_pos, this.top_index)
+					}else{if(ready_to_random == true){
+						random_move(this.imag.id,this.ready_to_klick)
+						}}}
 					else if (this.spin=="up"){
 						if(move_back_down != true && move_down != true){
 							this.to_back()
 						move_back_down = true
-						f1_down(this.imag.id,this.start_top, this.top_pos, this.left_index, this.ready_to_klick)
-					}else{
-						console.log("zablokovano")}
+						f1_down(this.imag.id,this.start_top, this.top_pos, this.left_index)
+					}else{if(ready_to_random == true){
+						random_move(this.imag.id,this.ready_to_klick)
+						}}
 				}
 					else if (this.spin=="down"){
 						if(move_back_up != true && move_up != true){
 							this.to_back()
 						move_back_up = true
-						f1_up(this.imag.id,this.start_top, this.top_pos, this.left_index, this.ready_to_klick)
-					}else{
-						console.log("zablokovano")}}
+						f1_up(this.imag.id,this.start_top, this.top_pos, this.left_index)
+					}else{random_move(this.imag.id,this.ready_to_klick)
+						}}
 				
 
 			}
@@ -243,26 +257,23 @@ class bee {
 	this.imag.style.zIndex = "1000"
 	this.top_index=this.get_top_index()
 	this.left_index = this.get_left_index()
-	console.log(this.imag.id+ "  "+this.left_pos+"  "+this.top_pos)
-
-
 	document.querySelector("body").appendChild(this.imag)
 
 	if (this.spin=="right"){
 		move_right = true
-	f1_right(this.imag.id,this.left_pos, this.start_left, this.top_index, this.ready_to_klick)
+	f1_right(this.imag.id,this.left_pos, this.start_left, this.top_index)
 		}
 	else if (this.spin=="left"){
 		move_left = true
-		f1_left(this.imag.id,this.left_pos, this.start_left, this.top_index, this.ready_to_klick)
+		f1_left(this.imag.id,this.left_pos, this.start_left, this.top_index)
 		}
 	else if (this.spin=="up"){
 		move_up = true
-		f1_up(this.imag.id,this.top_pos, this.start_top, this.left_index, this.ready_to_klick)
+		f1_up(this.imag.id,this.top_pos, this.start_top, this.left_index)
 	}
 	else if (this.spin=="down"){
 		move_down = true
-		f1_down(this.imag.id,this.top_pos, this.start_top, this.left_index, this.ready_to_klick)
+		f1_down(this.imag.id,this.top_pos, this.start_top, this.left_index)
 	}
 	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
 	
@@ -286,7 +297,7 @@ if (ready_for_new_bee==true){
 	}
 }
 }
-f1_right = async function(id,left, start_left,top_index, ready) {
+f1_right = async function(id,left, start_left,top_index) {
 	index_move_right=index_move_right+1
 
 	for(g=start_left;g<left;g= g+(1/index_move_right)){
@@ -311,7 +322,7 @@ index_move_right=index_move_right-1
 
   }
 
-f1_left = async function (id,left, start_left,top_index,ready) {
+f1_left = async function (id,left, start_left,top_index) {
 	index_move_left=index_move_left+1
 	for(h=start_left;h>left;h= h-(1/index_move_left)){
 		ready_for_new_bee= false
@@ -333,7 +344,7 @@ f1_left = async function (id,left, start_left,top_index,ready) {
 	index_move_left=index_move_left-1
 	
   }
-  f1_up = async function (id,top, start_top,left_index, ready) {
+  f1_up = async function (id,top, start_top,left_index) {
 
 	index_move_up=index_move_up+1
 	
@@ -356,7 +367,7 @@ f1_left = async function (id,left, start_left,top_index,ready) {
 	bee[id.replace("id","")].ready_to_klick = true   
 	index_move_up=index_move_up-1
   }
-f1_down = async function (id,top, start_top,left_index, ready) {
+f1_down = async function (id,top, start_top,left_index) {
 
 	index_move_down=index_move_down+1
 	for(a=start_top;a>top;a= a-(1/index_move_down)){
@@ -378,11 +389,51 @@ f1_down = async function (id,top, start_top,left_index, ready) {
 	bee[[id.replace("id","")]].ready_to_klick = true  
 	index_move_down=index_move_down-1
 }
+
+random_move = async function(id){
+
+ready_to_random = false
+random_index = Math.floor(Math. random()*4)
+random_left = (Math. random())
+random_top = (Math. random())
+if (random_left>random_top){
+	random_left=1
+}else{random_top=1}
+if (random_index ==0){
+	random_left=random_left*(-1)
+	document.getElementById(id).style.transform = "rotateY(180deg)"
+}else if(random_index ==1){
+	random_left=random_left*(-1)
+	document.getElementById(id).style.transform = "rotateY(180deg)"
+	random_top=random_top*(-1)
+}else if(random_index ==2){
+	random_top=random_top*(-1)
+	document.getElementById(id).style.transform = "rotateY(0deg)"
+}else{	document.getElementById(id).style.transform = "rotateY(0deg)"
+}
+	for(q=0;q<7;q++){
+		const x = await resolveAfter2Seconds(q);
+		ready_to_random = false
+		one_random_left = document.getElementById(id).style.left
+		one_random_left = one_random_left.replace("%","")
+		one_random_left = Number(one_random_left)
+		one_random_left = one_random_left+(random_left)
+		one_random_top = document.getElementById(id).style.top
+		one_random_top = one_random_top.replace("%","")
+		one_random_top = Number(one_random_top)
+		one_random_top = one_random_top+(random_top)
+		document.getElementById(id).style.top = one_random_top+ "%"
+		document.getElementById(id).style.left = one_random_left+ "%"
+	}
+	bee[one_id.replace("id","")].ready_to_klick =true
+	ready_to_random = true
+
+}
 resolveAfter2Seconds = function (x) {
 	return new Promise((resolve) => {
 	  setTimeout(() => {
 		resolve(x);
-	  }, 100);
+	  }, 70);
 	});
   }
   create_bee()
