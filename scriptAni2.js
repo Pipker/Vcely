@@ -11,6 +11,7 @@ move_down = false
 move_left = false
 move_right = false
 ready_to_random = true
+old_id=0
 
 // function to_back(){
 	
@@ -24,6 +25,8 @@ ready_to_random = true
 // 	one_left=Number(one_left)}
 
 function back(){
+	console.log(bee[one_id.replace("id","")].ready_to_klick)
+
 if (bee[one_id.replace("id","")].ready_to_klick ==true){
 	bee[one_id.replace("id","")].ready_to_klick =false
 
@@ -207,8 +210,8 @@ class bee {
 					move_back_left = true
 					f1_left(this.imag.id, this.start_left, this.left_pos, this.top_index)
 				}else{if(ready_to_random == true){
-					random_move(this.imag.id,this.ready_to_klick)
-					}}
+					random_move(this.imag.id)
+					}else{random_move2(this.imag.id)}}
 				}
 					else if (this.spin=="left"){
 						if(move_back_right != true && move_right != true){
@@ -216,24 +219,25 @@ class bee {
 						move_back_right = true
 						f1_right(this.imag.id,this.start_left, this.left_pos, this.top_index)
 					}else{if(ready_to_random == true){
-						random_move(this.imag.id,this.ready_to_klick)
-						}}}
+						random_move(this.imag.id)
+						}else{random_move2(this.imag.id)}}}
 					else if (this.spin=="up"){
 						if(move_back_down != true && move_down != true){
 							this.to_back()
 						move_back_down = true
 						f1_down(this.imag.id,this.start_top, this.top_pos, this.left_index)
 					}else{if(ready_to_random == true){
-						random_move(this.imag.id,this.ready_to_klick)
-						}}
+					random_move(this.imag.id)
+					}else{random_move2(this.imag.id)}}
 				}
 					else if (this.spin=="down"){
 						if(move_back_up != true && move_up != true){
 							this.to_back()
 						move_back_up = true
 						f1_up(this.imag.id,this.start_top, this.top_pos, this.left_index)
-					}else{random_move(this.imag.id,this.ready_to_klick)
-						}}
+					}else{if(ready_to_random == true){
+						random_move(this.imag.id)
+						}else{random_move2(this.imag.id)}}}
 				
 
 			}
@@ -275,8 +279,9 @@ class bee {
 		move_down = true
 		f1_down(this.imag.id,this.top_pos, this.start_top, this.left_index)
 	}
-	this.imag.addEventListener("click", function(Target){one_id=(Target["target"].id)
-	
+	this.imag.addEventListener("click", function(Target){
+		old_id=one_id
+		one_id=(Target["target"].id)
 	back()})
 }
 
@@ -285,6 +290,7 @@ class bee {
 
 
 function create_bee(){
+
 if (ready_for_new_bee==true){
 
 	test = 0
@@ -296,6 +302,12 @@ if (ready_for_new_bee==true){
 		index_id++
 	}
 }
+for(i=0;i<index_id-5;i++){
+	if (bee[i].ready_to_klick == false){
+		bee[i].ready_to_klick = true
+	}
+	console.log(bee[i].ready_to_klick)
+  }
 }
 f1_right = async function(id,left, start_left,top_index) {
 	index_move_right=index_move_right+1
@@ -411,24 +423,70 @@ if (random_index ==0){
 	document.getElementById(id).style.transform = "rotateY(0deg)"
 }else{	document.getElementById(id).style.transform = "rotateY(0deg)"
 }
-	for(q=0;q<7;q++){
+	for(q=0;q<6;q++){
 		const x = await resolveAfter2Seconds(q);
 		ready_to_random = false
 		one_random_left = document.getElementById(id).style.left
 		one_random_left = one_random_left.replace("%","")
 		one_random_left = Number(one_random_left)
-		one_random_left = one_random_left+(random_left)
 		one_random_top = document.getElementById(id).style.top
 		one_random_top = one_random_top.replace("%","")
 		one_random_top = Number(one_random_top)
+		if(one_random_top+(random_top)>3&&one_random_top+(random_top)<97){
 		one_random_top = one_random_top+(random_top)
-		document.getElementById(id).style.top = one_random_top+ "%"
-		document.getElementById(id).style.left = one_random_left+ "%"
+		document.getElementById(id).style.top = one_random_top+ "%"}
+		if(one_random_left+(random_left)>3&&one_random_left+(random_left)<97){
+		one_random_left = one_random_left+(random_left)
+		document.getElementById(id).style.left = one_random_left+ "%"}
 	}
 	bee[one_id.replace("id","")].ready_to_klick =true
 	ready_to_random = true
 
 }
+random_move2 = async function(id){
+	bee[old_id.replace("id","")].ready_to_klick =true
+	console.log("jede move2"+bee[old_id.replace("id","")])
+	random_index2 = Math.floor(Math. random()*4)
+	random_left2 = (Math. random())
+	random_top2 = (Math. random())
+	if (random_left2>random_top2){
+		random_left2=1
+	}else{random_top2=1}
+	if (random_index2 ==0){
+		random_left2=random_left2*(-1)
+		document.getElementById(id).style.transform = "rotateY(180deg)"
+	}else if(random_index2 ==1){
+		random_left2=random_left2*(-1)
+		document.getElementById(id).style.transform = "rotateY(180deg)"
+		random_top2=random_top2*(-1)
+	}else if(random_index2 ==2){
+		random_top2=random_top2*(-1)
+		document.getElementById(id).style.transform = "rotateY(0deg)"
+	}else{	document.getElementById(id).style.transform = "rotateY(0deg)"
+	}
+		for(u=0;u<6;u++){
+			const x = await resolveAfter2Seconds(u);
+			ready_to_random = false
+			
+			one_random_left2 = document.getElementById(id).style.left
+			one_random_left2 = one_random_left2.replace("%","")
+			one_random_left2 = Number(one_random_left2)
+			one_random_top2 = document.getElementById(id).style.top
+			one_random_top2 = one_random_top2.replace("%","")
+			one_random_top2 = Number(one_random_top2)
+			if(one_random_top2+(random_top2)>3&&one_random_top2+(random_top2)<97){
+			one_random_top2 = one_random_top2+(random_top2)
+			document.getElementById(id).style.top = one_random_top2+ "%"}
+			if(one_random_left2+(random_left2)>3&&one_random_left2+(random_left2)<97){
+			one_random_left2 = one_random_left2+(random_left2)
+			document.getElementById(id).style.left = one_random_left2+ "%"}
+		}
+		bee[id.replace("id","")].ready_to_klick =true
+		
+		ready_to_random = true
+	
+	}
+
 resolveAfter2Seconds = function (x) {
 	return new Promise((resolve) => {
 	  setTimeout(() => {
