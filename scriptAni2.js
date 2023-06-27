@@ -12,111 +12,54 @@ move_left = false
 move_right = false
 ready_to_random = true
 old_id=0
-
-// function to_back(){
-	
-// 	move_bee.top_index = move_bee.top_index*(-1)
-// 	move_bee.left_index = move_bee.left_index*(-1)
-// 	if (move_bee.imag.style.transform == "rotateY(180deg)"){
-// 		move_bee.imag.style.transform = "rotateY(0deg)"
-// 	}else {move_bee.imag.style.transform = "rotateY(180deg)"}
-// 	one_left = document.getElementById(one_id).style.left
-// 	one_left=one_left.replace("%" , "")
-// 	one_left=Number(one_left)}
-
+index_move_left=0
+index_move_right=0
+index_move_up=0
+index_move_down=0
+ready_for_new_bee = true
 function back(){
-	console.log(bee[one_id.replace("id","")].ready_to_klick)
 
 if (bee[one_id.replace("id","")].ready_to_klick ==true){
 	bee[one_id.replace("id","")].ready_to_klick =false
 
 	bee[one_id.replace("id","")].go_back()
 }
-	// move_bee = bee[one_id.replace("id","")]
-	// if (move_bee.spin=="right"){
-	// 	if(move_back_left != true){
-	// 		to_back()
-	// 	move_back_left = true
-	// 	f1_left(move_bee.imag.id, move_bee.start_left, move_bee.left_pos, move_bee.top_index)
-	// }
-	// }
-	// 	else if (move_bee.spin=="left"){
-	// 		if(move_back_right != true){
-	// 			to_back()
-	// 		move_back_right = true
-	// 		f1_right(move_bee.imag.id,move_bee.start_left, move_bee.left_pos, move_bee.top_index)
-	// 		}
-	// 	}
-	// 	else if (move_bee.spin=="up"){
-	// 		if(move_back_down != true){
-	// 			to_back()
-	// 		move_back_down = true
-	// 		f1_down(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
-	// 	}
-	// }
-	// 	else if (move_bee.spin=="down"){
-	// 		if(move_back_up != true){
-	// 			to_back()
-	// 		move_back_up = true
-	// 		f1_up(move_bee.imag.id,move_bee.start_top, move_bee.top_pos, move_bee.left_index)
-	// 	}
-	// }
 
 }
-index_move_left=0
-index_move_right=0
-index_move_up=0
-index_move_down=0
-ready_for_new_bee = true
-// var beesound=new Audio("../wav/bee.wav");
-// var dino1sound=new Audio("../wav/dino1.wav");
-// var dino2sound=new Audio("../wav/dino2.wav");
-// var dino3sound=new Audio("../wav/dino3.wav");
-// var dinobigsound=new Audio("../wav/dinobig.wav");
-// var dinobirdsound=new Audio("../wav/dinobird.wav");
+
+var beesound=new Audio("../wav/bee.wav");
+var dino1sound=new Audio("../wav/dino1.wav");
+var dino2sound=new Audio("../wav/dino2.wav");
+var dino3sound=new Audio("../wav/dino3.wav");
+var dinobigsound=new Audio("../wav/dinobig.wav");
+var dinobirdsound=new Audio("../wav/dinobird.wav");
 
 function gen_num(){
 	return(Math.floor(Math. random()*90))
 }
 
-// function get_result(bleft,btop,bclass){
-// 	resultLeft = bleft-ulleft
-// 	if(resultLeft<0){
-// 		document.querySelector(bclass).style.transform = "rotateY(0deg)";
-// 		resultLeft=resultLeft*-1
-// 	}
-// 	resultTop=btop-ultop
-// 	if(resultTop<0){
-// 		resultTop=resultTop*-1
-// 	}
-// 	if (resultLeft>resultTop){
-// 		resultSpin ="left"
-// 	}else{
-// 		resultSpin ="top"
-// 	}	
-// }
 
-// function dino1(){
-// dino1sound.play();	
-// }
-// function dino2(){
-// dino2sound.play();	
-// }
-// function dino3(){
-// dino3sound.play();	
-// }
-// function dinobig(){
-// dinobigsound.play();	
-// }
-// function dinobird(){
-// dinobirdsound.play();	
-// }
+function dino1(){
+dino1sound.play();	
+}
+function dino2(){
+dino2sound.play();	
+}
+function dino3(){
+dino3sound.play();	
+}
+function dinobig(){
+dinobigsound.play();	
+}
+function dinobird(){
+dinobirdsound.play();	
+}
 
-// document.querySelector("#dino1").addEventListener("click", dino1);
-// document.querySelector("#dino2").addEventListener("click", dino2);
-// document.querySelector("#dino3").addEventListener("click", dino3);
-// document.querySelector("#dinobig").addEventListener("click", dinobig);
-// document.querySelector("#dinobird").addEventListener("click", dinobird)
+document.querySelector("#dino1").addEventListener("click", dino1);
+document.querySelector("#dino2").addEventListener("click", dino2);
+document.querySelector("#dino3").addEventListener("click", dino3);
+document.querySelector("#dinobig").addEventListener("click", dinobig);
+document.querySelector("#dinobird").addEventListener("click", dinobird)
 document.querySelector(".ul").addEventListener("click", create_bee)
 
 
@@ -187,9 +130,7 @@ class bee {
 			if (this.left_pos >this.start_left){
 				this.imag.style.transform = "rotateY(180deg)"
 			}else {this.imag.style.transform = "rotateY(0deg)"}
-			// one_left = this.left_pos
-			// one_left=one_left.replace("%" , "")
-			// one_left=Number(one_left)
+
 		}
 
 		go_back(){
@@ -306,10 +247,10 @@ for(i=0;i<index_id-5;i++){
 	if (bee[i].ready_to_klick == false){
 		bee[i].ready_to_klick = true
 	}
-	console.log(bee[i].ready_to_klick)
   }
 }
 f1_right = async function(id,left, start_left,top_index) {
+	beesound.play()
 	index_move_right=index_move_right+1
 
 	for(g=start_left;g<left;g= g+(1/index_move_right)){
@@ -335,6 +276,7 @@ index_move_right=index_move_right-1
   }
 
 f1_left = async function (id,left, start_left,top_index) {
+	beesound.play()
 	index_move_left=index_move_left+1
 	for(h=start_left;h>left;h= h-(1/index_move_left)){
 		ready_for_new_bee= false
@@ -357,7 +299,7 @@ f1_left = async function (id,left, start_left,top_index) {
 	
   }
   f1_up = async function (id,top, start_top,left_index) {
-
+	beesound.play()
 	index_move_up=index_move_up+1
 	
 	for(z=start_top;z<top;z= z+(1/index_move_up)){
@@ -380,7 +322,7 @@ f1_left = async function (id,left, start_left,top_index) {
 	index_move_up=index_move_up-1
   }
 f1_down = async function (id,top, start_top,left_index) {
-
+	beesound.play()
 	index_move_down=index_move_down+1
 	for(a=start_top;a>top;a= a-(1/index_move_down)){
 		ready_for_new_bee= false
@@ -403,6 +345,7 @@ f1_down = async function (id,top, start_top,left_index) {
 }
 
 random_move = async function(id){
+	beesound.play()
 
 ready_to_random = false
 random_index = Math.floor(Math. random()*4)
@@ -444,8 +387,8 @@ if (random_index ==0){
 
 }
 random_move2 = async function(id){
+	beesound.play()
 	bee[old_id.replace("id","")].ready_to_klick =true
-	console.log("jede move2"+bee[old_id.replace("id","")])
 	random_index2 = Math.floor(Math. random()*4)
 	random_left2 = (Math. random())
 	random_top2 = (Math. random())
